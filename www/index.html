@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<title>Scout Test</title>
+
+		<link rel="stylesheet" type="text/css" href="css/vendor/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/vendor/bootstrap-grid.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/vendor/bootstrap-table.min.css" />
+
+		<link rel="stylesheet" type="text/css" href="css/scout-sheet.css" />
+	</head>
+	<body>
+		<section data-role="page" id="main">
+			<div class="container">
+				<div class="jumbotron">
+					<h1 class="display-4">Welcome to the 296 Scouting Alpha!</h1>
+					<p class="lead">Please select your role:</p>
+					<br>
+					<a class="btn btn-success btn-lg js-activate-scout" href="#scout-page" role="button">Scout</a>
+					<a class="btn btn-primary btn-lg js-activate-collector" href="#collect-page" role="button">Collector</a>
+				</div>
+			</div>
+		</section>
+		<section data-role="page" id="scout-page">
+			<div class="container">
+				<a class="btn btn-primary btn-lg" href="#main" role="button">Home</a>
+				<div class="jumbotron">
+					<h1>Welcome Scout!</h1>
+					<br>
+					<a class="btn btn-success btn-lg" href="#scout-sheet" role="button">Scout a match</a>
+				</div>
+			</div>
+		</section>
+		<section data-role="page" id="scout-sheet">
+			<div class="container">
+				<a class="btn btn-primary btn-lg" href="#scout-page" role="button">Scout Home</a>
+				<h1>Scout a match</h1>
+				<form class="js-scout-sheet">
+					<div class="form-group">
+						<label for="scout-sheet-team">Team Number</label>
+						<input type="number" class="form-control" name="team-number" id="scout-sheet-team">
+					</div>
+					<h2>Autonomous Performance</h2>
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input" name="line-cross" id="scout-sheet-line-cross" aria-describedby="scout-sheet-line-help">
+						<label class="custom-control-label" for="scout-sheet-line-cross">Cross the line</label>
+						<small id="scout-sheet-line-help" class="form-text text-muted">Robot crossed the line during Autonomous</small>
+					</div>
+					<br>
+					<div class="form-group">
+						<label for="scout-sheet-cores">Cores Collected <span class="badge badge-pill badge-primary js-scout-sheet-cores-badge">0</span></label>
+						<input type="range" min="0" max="5" value="0" class="scout-sheet__cores-slider js-scout-sheet-cores" id="scout-sheet-cores" name="cores" aria-describedby="scout-sheet-cores-help">
+						<small id="scout-sheet-cores-help" class="form-text text-muted">Number of Cores in the lander at the end of Autonomous</small>
+					</div>
+					<div class="form-group">
+						<label for="scout-sheet-rocks">Rocks Collected</label>
+						<input type="number" class="form-control" id="scout-sheet-rocks" name="rocks"aria-describedby="scout-sheet-rocks-help">
+						<small id="scout-sheet-rock-help" class="form-text text-muted">Number of Rocks in the lander at the end of Autonomous</small>
+					</div>
+					<div class="form-group">
+						<h3>Herd or Collect</h3>
+						<div class="custom-control custom-radio">
+							<input type="radio" id="scout-sheet-herd" name="herd-collect" value="herd" class="custom-control-input">
+							<label class="custom-control-label" for="scout-sheet-herd">Herd</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" id="scout-sheet-collect" name="herd-collect" value="collect" class="custom-control-input">
+							<label class="custom-control-label" for="scout-sheet-collect">Collect</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" id="scout-sheet-na" name="herd-collect" value="na" class="custom-control-input">
+							<label class="custom-control-label" for="scout-sheet-na">Don't Know</label>
+						</div>
+						<small id="scout-sheet-herdcollect-help" class="form-text text-muted">Whether the robot seems to be grabbing up (collect), or pushing pushing around (herd) the game elements. Don't know if the team doesn't interact with the game elements.</small>
+					</div>
+					<button type="submit" class="btn btn-success">Submit</button>
+				</form>
+
+				<div class="modal js-scout-result-modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog modal-xl" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Scout Result</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="js-scout-sheet-encoded scout-sheet__qr-code">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<span class="js-qr-sink"></span>
+			</div>
+		</section>
+		<section data-role="page" id="collect-page">
+			<div class="container">
+				<a class="btn btn-primary btn-lg" href="#main" role="button">Home</a>
+				<div class="jumbotron">
+					<h1>Welcome Collector!</h1>
+					<br>
+					<button class="btn btn-success btn-lg js-scan-report">Scan Report</button>
+				</div>
+				<h2>Latest Results</h2>
+				<div>
+					<table class="js-results-table"></table>
+				</div>
+			</div>
+		</section>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script src="barcodescanner.js"></script>
+
+		<script type="text/javascript" src="js/vendor/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/vendor/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" src="js/vendor/Nibbler.js"></script>
+		<script type="text/javascript" src="js/vendor/bootstrap-table.min.js"></script>
+		<script type="text/javascript" src="js/vendor/qrcode.davidshimjs.min.js"></script>
+		<script type="text/javascript" src="js/vendor/svg.min.js"></script>
+
+		<script type="text/javascript" src="js/pages.js"></script>
+		<script type="text/javascript" src="js/scout-sheet.js"></script>
+		<script type="text/javascript" src="js/collect.js"></script>
+	</body>
+</html>

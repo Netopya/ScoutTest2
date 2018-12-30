@@ -1,0 +1,9 @@
+.scout-sheet__cores-slider {
+    display: block;
+    width: 100%;
+}
+
+.scout-sheet__qr-code {
+    max-height: 80vh;
+    max-width: 90vw;
+}
